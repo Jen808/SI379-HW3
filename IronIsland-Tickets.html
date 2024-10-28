@@ -65,12 +65,12 @@
     }
 
     function updateTicketCost() {
-      var ticketsCost = (parseInt(document.getElementById("txtTickets")?.value) || 0) * 75;
+      var ticketsCost = (parseInt(txtTickets?.value) || 0) * 75;
 
-      var parkingCost = document.getElementById("cmbParking")?.value === "Regular" ? 50 :
-        document.getElementById("cmbParking")?.value === "Premium" ? 100 : 0;
+      var parkingCost = cmbParking?.value === "Regular" ? 50 :
+        cmbParking?.value === "Premium" ? 100 : 0;
 
-      var enteredCode = document.getElementById("txtDiscountCode")?.value.trim() || "";
+      var enteredCode = txtDiscountCode?.value.trim() || "";
       console.log("Entered discount code:", enteredCode); 
 
       var discountAmount = parseInt(discountCodes[enteredCode]) || 0;
@@ -79,12 +79,12 @@
       var tax = subtotal * 0.06;
       var total = subtotal + tax;
 
-      document.getElementById("txtTicketCost")?.setAttribute('value', ticketsCost.toFixed(2));
-      document.getElementById("txtParkingCost")?.setAttribute('value', parkingCost.toFixed(2));
-      document.getElementById("txtDiscountAmount")?.setAttribute('value', discountAmount.toFixed(2));
-      document.getElementById("txtSubtotal")?.setAttribute('value', subtotal.toFixed(2));
-      document.getElementById("txtTax")?.setAttribute('value', tax.toFixed(2));
-      document.getElementById("txtTotal")?.setAttribute('value', total.toFixed(2));
+      txtTicketCost?.setAttribute('value', ticketsCost.toFixed(2));
+      txtParkingCost?.setAttribute('value', parkingCost.toFixed(2));
+      txtDiscountAmount?.setAttribute('value', discountAmount.toFixed(2));
+      txtSubtotal?.setAttribute('value', subtotal.toFixed(2));
+      txtTax?.setAttribute('value', tax.toFixed(2));
+      txtTotal?.setAttribute('value', total.toFixed(2));
     }
 
 
