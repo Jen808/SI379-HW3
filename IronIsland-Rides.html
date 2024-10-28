@@ -33,6 +33,8 @@
   <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js">
   </script>
 
+
+
   <!-- Internal script -->
   <script>
     "use strict";
@@ -49,7 +51,7 @@
         console.dir(data);
         console.log("Rides array retrieved successfully from Rides.json");
 
-        $('#tblMenu').DataTable({
+        $('#tblRides').DataTable({
           data: data,
           columns: [
             { title: "Ride" },
