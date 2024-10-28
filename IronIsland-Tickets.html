@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+
+<!--==================================================================
+//
+// Web site: Iron Island Amusement Park, v2
+// Web page: Tickets. v2
+// Course:   SI 379
+// Homework: 2
+// Author:   Jennifer Jung
+// Description:
+//   This web page enables a customer to order tickets to visit the 
+// Iron Island Amusement Park.
+//
+//=================================================================-->
+
+<head>
+
+  <title>Iron Island Tickets, v2</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="Jennifer Jung">
+  <meta name="description" content="Iron Island">
+  <meta name="keywords" content="park, rides, fun">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Favicon link -->
+  <link rel="shortcut icon" href="Image-IronIslandLogo.jpg" type="image/x-icon">
+  
+  <!-- External CSS link -->
+  <link rel="stylesheet" href="IronIsland-ExternalStyles.css">
+
+  <script type="text/javascript">
+
+    "use strict";
+
+    // updateTickerCost function
+
+
+    function updateTicketCost() {
+      let tickets = parseInt(document.getElementById("txtTickets").value) || 0;
+      let parkingType = document.getElementById("cmbParking").value;
+
+      let ticketCost = tickets * 75;
+      let parkingCost = 0;
+
+      if (parkingType === "Regular") {
+        parkingCost = 50;
+      } else if (parkingType === "Premium") {
+        parkingCost = 100;
+      } else {
+        parkingCost = 0;
+      }
+
+      let subtotal = ticketCost + parkingCost;
+      let tax = subtotal * 0.06; 
+      let total = subtotal + tax;
+
+      document.getElementById("txtSubtotal").value = subtotal.toFixed(2);
+      document.getElementById("txtTax").value = tax.toFixed(2);
+      document.getElementById("txtTotal").value = total.toFixed(2);
+    }
+
+  </script>
+
+
+
+
+</head>
+ 
+<body onload="updateTicketCost()">
+
+  <!-- Header section -->
+  <div class="headerPanel">
+    <h1>
+      Iron Island Tickets
+    </h1>
+  </div>
+
+  <!-- Menu section -->
+  <div class="menuPanel">
+    <h2>
+      <a href="IronIsland-Park.html">Park Page</a>
+      <a href="IronIsland-Rides.html">Rides Page</a>
+      <a href="IronIsland-Tickets.html">Tickets Page</a>
+    </h2>
+  </div>
+  <hr>
+  
+  <!-- Left panel -->
+  <div class="contentPanel4">
+  
+    <!-- Form -->
+    <form 
+      method="get" 
+      enctype="application/x-www-form-urlencoded"
+      action="http://www.strategicsystems.biz/Scripts/ServerResponse.php" 
+      >
+
+      <!-- Customer name and e-mail -->
+      <label for="txtCustomerName">Customer name:</label>
+      <input 
+        id="txtCustomerName"
+        type="text"
+        name="txtCustomerName" 
+        placeholder="your name"
+        required
+        >
+      <br><br>
+
+      <label for="txtCustomerEmail">Customer e-mail:</label>
+      <input 
+        id="txtCustomerEmail"
+        type="email"
+        name="txtCustomerEmail" 
+        placeholder="your e-mail"
+        required
+        >
+      <br><br>
+      
+      <!-- Date and part of day -->
+      <label for="txtDate">Date:</label>
+      <input 
+        id="txtDate"
+        type="date"
+        name="txtDate"
+        value="2024-09-26" 
+        min="2024-05-01"
+        max="2024-10-31"
+        required
+        >
+      <br><br>
+
+      <fieldset>
+        <legend>Part of day</legend>
+
+        <input
+          id="rbHalfDay"
+          type="radio"
+          name="rbPartOfDay"
+          value="HalfDay"
+          >
+        <label for="rbHalfDay"> Half day</label>
+        <br>
+
+        <input
+          id="rbWholeDay" 
+          type="radio"
+          name="rbPartOfDay"
+          value="WholeDay"
+          checked
+          >
+        <label for="rbWholeDay"> Whole day</label>
+        <br>
+
+      </fieldset>
+      <br><br>
+
+      <!-- Tickets -->
+      <label for="txtTickets">Tickets (1-21):</label>
+      
+      <input
+        id="txtTickets"
+        type="number"
+        name="txtTickets"
+        value="2" 
+        min="1"
+        step="1"
+        max="21"
+        required
+        onchange="updateTicketCost()"
+        >
+      <br><br>
+
+      <!-- Parking option -->
+      <label for="cmbParking">Parking:</label>
+      <select id="cmbParking" name="cmbParking" onchange="updateTicketCost()">
+        <option value="Regular" selected>Regular</option>
+        <option value="Premium">Premium</option>
+        <option value="NotNeeded">Not Needed</option>
+      </select> 
+      <br><br>
+      
+      <!-- Discount code -->      
+      <label for="txtDiscountCode">Discount code:</label>
+      <input 
+        id="txtDiscountCode"
+        type="text"
+        name="txtDiscountCode"
+        placeholder="ccc"
+        maxlength="3"
+        onchange="updateTicketCost()"
+        >
+      <br><br>
+      
+      <!-- Payment type fieldset -->
+      <fieldset>
+        <legend>Payment type</legend>
+
+        <input 
+          id="rbCredit"
+          type="radio"
+          name="rbPaymentType"
+          value="Credit"
+          checked
+          >
+        <label for="rbCredit"> Credit</label>
+        <br>
+
+        <input 
+          id="rbPayPal"
+          type="radio"
+          name="rbPaymentType"
+          value="PayPal"
+          >
+        <label for="rbPayPal"> PayPal</label>
+        <br>
+
+        <input 
+          id="rbVenmo"
+          type="radio"
+          name="rbPaymentType"
+          value="Venmo"
+          >
+        <label for="rbVenmo"> Venmo</label>
+        <br>
+
+      </fieldset>
+      <br>
+
+
+      <!-- Subtotal -->
+      <label>Subtotal:</label>
+      <input id="txtSubtotal" type="text" readonly><br><br>
+
+      <label>Tax (6%):</label>
+      <input id="txtTax" type="text" readonly><br><br>
+
+      <label>Total:</label>
+      <input id="txtTotal" type="text" readonly><br><br>
+
+
+      <!-- Form buttons -->
+      <input type="submit" value="Submit" class="formButton">
+      <input type="reset" value="Reset" class="formButton">
+
+    </form>
+
+  </div>
+
+  <!-- Right panel -->
+  <div class="contentPanel4">
+  
+    <!-- Park seating chart -->
+    <img 
+      src="Image-IronIsland.jfif" alt="Iron Island Park Map" 
+      width="70%" height="auto" class="ticketimg"
+      >
+
+  </div>
+
+  <!-- Footer section -->
+  <div class="footerPanel">
+    <h3>
+      Iron Island
+      &nbsp;&nbsp;7912 Coventry, Grosse Ile, MI 48138
+      &nbsp;&nbsp;734-761-3355
+      &nbsp;&nbsp;<a href="mailto:info@ironislandpark.com">
+      Email Us!</a>
+      &nbsp;&nbsp;Copyright &#169; 2024
+    </h3>
+  </div>
+  
+</body>
+ 
+</html>

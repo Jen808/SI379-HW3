@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<!--==================================================================
+//
+// Web site: Iron Island Amusement Park, v2
+// Web page: Data Admin, v2
+// Course:   SI 379
+// Homework: 2
+// Author:   Jennifer Jung
+// Description:
+// This web site features amusement park Iron Island.  The Data Admin page
+// is to store ride data and clear ride data
+//=================================================================-->
+
+<head>
+
+    <title>Data Admin, v2</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jennifer Jung">
+    <meta name="description" content="Iron Island">
+    <meta name="keywords" content="park, rides, fun">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon link -->
+    <link rel="shortcut icon" href="Image-IronIslandLogo.jpg" type="image/x-icon">
+
+    <!-- External CSS link -->
+    <link rel="stylesheet" href="IronIsland-ExternalStyles.css">
+
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+
+    <script>
+        "use strict";
+
+        var data =
+            [
+                [
+                    "Blue Streak",
+                    "Medium",
+                    "10-70",
+                    "<img src='Image-BlueStreak.jfif' alt='Blue Streak'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "Haunted Mansion",
+                    "Medium",
+                    "5-65",
+                    "<img src='Image-HauntedMansion.jfif' alt='Haunted Mansion'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "It's a Small World",
+                    "Low",
+                    "4-94",
+                    "<img src='Image-ItsASmallWorld.jfif' alt='Its a Small World'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "Maverick",
+                    "High",
+                    "14-54",
+                    "<img src='Image-Maverick.jfif' alt='Maverick'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "Top Thrill Dragster",
+                    "High",
+                    "12-52",
+                    "<img src='Image-TopThrillDragster.jfif' alt='Top Thrill Dragster'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "WindSeeker",
+                    "Low",
+                    "8-78",
+                    "<img src='Image-WindSeeker.jfif' alt='WindSeeker'" +
+                    "width='300' height='200'>"
+                ],
+                [
+                    "Space Mountain",
+                    "Low",
+                    "7-87",
+                    "<img src='Image-SpaceMountain.jpg' alt='Space Mountain'" +
+                    "width='300' height='200'>"
+                ]
+            ];
+
+        $(function () {
+            $('#tblMenu').DataTable(
+                {
+                    "data": data,
+                    "autoWidth": false
+                });
+        });
+
+
+
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <div class="menuPanel">
+        <h2>
+            <a href="IronIsland-Park.html">Park Page</a>
+            <a href="IronIsland-Rides.html">Rides Page</a>
+            <a href="IronIsland-Tickets.html">Tickets Page</a>
+        </h2>
+    </div>
+    <hr>
+
+    <div class="contentpanel1">
+        <h1>Data Admin Page</h1>
+        <div class="databutton-container">
+            <button onclick="storeRideData()" class="databutton">Store Ride Data</button>
+            <button onclick="clearRideData()" class="databutton">Clear Ride Data</button>
+        </div>
+
+        <p id="status">Status messages will appear here...</p>
+    </div>
+
+    <div class="footerPanel">
+        <h3>
+            Iron Island
+            &nbsp;&nbsp;7912 Coventry, Grosse Ile, MI 48138
+            &nbsp;&nbsp;734-761-3355
+            &nbsp;&nbsp;<a href="mailto:info@ironislandpark.com">
+                Email Us!</a>
+            &nbsp;&nbsp;Copyright &#169; 2024
+        </h3>
+    </div>
+
+
+
+    <script>
+
+        // button to call function storeRideData
+
+        function storeRideData() {
+            localStorage.setItem("rides", JSON.stringify(data));
+            // status.innerHTML = "Rides array stored successfully!";
+            document.getElementById("status").innerHTML = "Rides array stored successfully!";
+
+        }
+
+
+
+        // button to call function clearRideData
+
+        function clearRideData() {
+            localStorage.removeItem("rides");
+            // status.innerHTML = "Rides array cleared from local storage!";
+            document.getElementById("status").innerHTML = "Rides array cleared from local storage!";
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
