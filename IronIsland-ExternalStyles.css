@@ -119,9 +119,6 @@ input:read-only
   background-color: var(--color-blue);
 }
 
-#txtDiscountCode{
-  background-color: var(--color-lightgold);
-}
 
 /*====================================================================
  Label style
