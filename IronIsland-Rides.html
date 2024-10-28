@@ -3,20 +3,17 @@
 
 <!--==================================================================
 //
-// Web site: Iron Island Amusement Park, v2
-// Web page: Rides, v2
-// Course:   SI 379
-// Homework: 2
-// Author:   Jennifer Jung
+// Web site: Iron Island Amusement Park
+// Web page: Rides
 // Description:
 //   This web page contains information about rides at the Iron Island
 // Amusement Park.
-//
+// 
 //=================================================================-->
 
 <head>
 
-  <title>Iron Island Rides</title>
+  <title>Iron Island Rides, v3</title>
   <meta charset="UTF-8">
   <meta name="author" content="Jennifer Jung">
   <meta name="description" content="Iron Island">
@@ -36,87 +33,40 @@
   <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js">
   </script>
 
+  <!-- Internal script -->
   <script>
+    "use strict";
 
-    "use strict"
+    // Declare rides array
+    var rides;
+
+    //================================================================
+    // loadRides
+    //================================================================
 
     function loadRides() {
-      let data = JSON.parse(localStorage.getItem("rides"));
-      console.dir(data);
-      console.log("Rides array retrieved successfully from local storage");
+      $.getJSON("Rides.json", function (data) {
+        console.dir(data);
+        console.log("Rides array retrieved successfully from Rides.json");
 
-      if (!data) {
-        console.lof("No rides found in local storage. Using default data.");
-        data =
-          [
-            [
-              "Blue Streak",
-              "Medium",
-              "10-70",
-              "<img src='Image-BlueStreak.jfif' alt='Blue Streak'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "Haunted Mansion",
-              "Medium",
-              "5-65",
-              "<img src='Image-HauntedMansion.jfif' alt='Haunted Mansion'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "It's a Small World",
-              "Low",
-              "4-94",
-              "<img src='Image-ItsASmallWorld.jfif' alt='Its a Small World'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "Maverick",
-              "High",
-              "14-54",
-              "<img src='Image-Maverick.jfif' alt='Maverick'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "Top Thrill Dragster",
-              "High",
-              "12-52",
-              "<img src='Image-TopThrillDragster.jfif' alt='Top Thrill Dragster'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "WindSeeker",
-              "Low",
-              "8-78",
-              "<img src='Image-WindSeeker.jfif' alt='WindSeeker'" +
-              "width='300' height='200'>"
-            ],
-            [
-              "Space Mountain",
-              "Low",
-              "7-87",
-              "<img src='Image-SpaceMountain.jpg' alt='Space Mountain'" +
-              "width='300' height='200'>"
-            ]
-          ];
-
-        $(function () {
-          $('#tblMenu').DataTable(
-            {
-              "data": data,
-              "columns": [
-                { "title": "Ride" },
-                { "title": "Intensity" },
-                { "title": "Recommended Ages" },
-                { "title": "Image" }
-              ],
-              "autoWidth": false
-            });
+        $('#tblMenu').DataTable({
+          data: data,
+          columns: [
+            { title: "Ride" },
+            { title: "Intensity" },
+            { title: "Recommended Ages" },
+            { title: "Image" }
+          ],
+          autoWidth: false
         });
-
-      }
-
+      }).fail(function () {
+        console.error("Failed to load rides data from Rides.json");
+      });
     }
+
+
+
+
 
 
   </script>
@@ -146,7 +96,7 @@
   <div class="tablePanel">
 
     <!-- DataTables placeholder -->
-    <table id="tblMenu" class="display">
+    <table id="tblRides" class="display">
       <thead>
         <tr>
           <th>Ride</th>
@@ -168,73 +118,6 @@
     </table>
   </div>
   <hr>
-
-  <!-- DataTables script -->
-  <script type="text/javascript">
-    "use strict";
-
-    var data =
-      [
-        [
-          "Blue Streak",
-          "Medium",
-          "10-70",
-          "<img src='Image-BlueStreak.jfif' alt='Blue Streak'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "Haunted Mansion",
-          "Medium",
-          "5-65",
-          "<img src='Image-HauntedMansion.jfif' alt='Haunted Mansion'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "It's a Small World",
-          "Low",
-          "4-94",
-          "<img src='Image-ItsASmallWorld.jfif' alt='Its a Small World'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "Maverick",
-          "High",
-          "14-54",
-          "<img src='Image-Maverick.jfif' alt='Maverick'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "Top Thrill Dragster",
-          "High",
-          "12-52",
-          "<img src='Image-TopThrillDragster.jfif' alt='Top Thrill Dragster'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "WindSeeker",
-          "Low",
-          "8-78",
-          "<img src='Image-WindSeeker.jfif' alt='WindSeeker'" +
-          "width='300' height='200'>"
-        ],
-        [
-          "Space Mountain",
-          "Low",
-          "7-87",
-          "<img src='Image-SpaceMountain.jpg' alt='Space Mountain'" +
-          "width='300' height='200'>"
-        ]
-      ];
-
-    $(function () {
-      $('#tblMenu').DataTable(
-        {
-          "data": data,
-          "autoWidth": false
-        });
-    });
-
-  </script>
 
   <!-- Footer section -->
   <div class="footerPanel">

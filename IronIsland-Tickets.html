@@ -1,74 +1,101 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-
 <!--==================================================================
 //
-// Web site: Iron Island Amusement Park, v2
-// Web page: Tickets. v2
-// Course:   SI 379
-// Homework: 2
-// Author:   Jennifer Jung
+// Web site: Iron Island Amusement Park
+// Web page: Tickets
 // Description:
 //   This web page enables a customer to order tickets to visit the 
 // Iron Island Amusement Park.
-//
+// 
 //=================================================================-->
 
 <head>
 
-  <title>Iron Island Tickets, v2</title>
+  <title>Iron Island Tickets, v3</title>
   <meta charset="UTF-8">
   <meta name="author" content="Jennifer Jung">
   <meta name="description" content="Iron Island">
   <meta name="keywords" content="park, rides, fun">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <!-- Favicon link -->
   <link rel="shortcut icon" href="Image-IronIslandLogo.jpg" type="image/x-icon">
-  
+
   <!-- External CSS link -->
   <link rel="stylesheet" href="IronIsland-ExternalStyles.css">
 
-  <script type="text/javascript">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
+  <!-- Internal script -->
+  <script>
     "use strict";
 
-    // updateTickerCost function
+    //================================================================
+    // updateTicketCost
+    //================================================================
 
+    let discountCodes = {};
+
+    function loadCodes() {
+      $.getJSON("DiscountCodes.json", function (data) {
+        if (data) {
+          console.log("Discount codes retrieved successfully from json");
+          loadCodesResponse(data);
+        } else {
+          console.error("Failed to retrieve discount codes");
+        }
+      }).fail(function (jqxhr, textStatus, error) {
+        const err = textStatus + ", " + error;
+        console.error("Failed to load json: " + err);
+      });
+    }
+
+    function loadCodesResponse(data) {
+      data.forEach(function (discount) {
+        discountCodes[discount[0]] = discount[1];
+      });
+
+      console.log("Loaded discount codes:", discountCodes); 
+
+      updateTicketCost();
+    }
 
     function updateTicketCost() {
-      let tickets = parseInt(document.getElementById("txtTickets").value) || 0;
-      let parkingType = document.getElementById("cmbParking").value;
+      var ticketsCost = (parseInt(document.getElementById("txtTickets")?.value) || 0) * 75;
 
-      let ticketCost = tickets * 75;
-      let parkingCost = 0;
+      var parkingCost = document.getElementById("cmbParking")?.value === "Regular" ? 50 :
+        document.getElementById("cmbParking")?.value === "Premium" ? 100 : 0;
 
-      if (parkingType === "Regular") {
-        parkingCost = 50;
-      } else if (parkingType === "Premium") {
-        parkingCost = 100;
-      } else {
-        parkingCost = 0;
-      }
+      var enteredCode = document.getElementById("txtDiscountCode")?.value.trim() || "";
+      console.log("Entered discount code:", enteredCode); 
 
-      let subtotal = ticketCost + parkingCost;
-      let tax = subtotal * 0.06; 
-      let total = subtotal + tax;
+      var discountAmount = parseInt(discountCodes[enteredCode]) || 0;
+      console.log("Discount amount applied:", discountAmount); 
+      var subtotal = ticketsCost + parkingCost - discountAmount;
+      var tax = subtotal * 0.06;
+      var total = subtotal + tax;
 
-      document.getElementById("txtSubtotal").value = subtotal.toFixed(2);
-      document.getElementById("txtTax").value = tax.toFixed(2);
-      document.getElementById("txtTotal").value = total.toFixed(2);
+      document.getElementById("txtTicketCost")?.setAttribute('value', ticketsCost.toFixed(2));
+      document.getElementById("txtParkingCost")?.setAttribute('value', parkingCost.toFixed(2));
+      document.getElementById("txtDiscountAmount")?.setAttribute('value', discountAmount.toFixed(2));
+      document.getElementById("txtSubtotal")?.setAttribute('value', subtotal.toFixed(2));
+      document.getElementById("txtTax")?.setAttribute('value', tax.toFixed(2));
+      document.getElementById("txtTotal")?.setAttribute('value', total.toFixed(2));
     }
+
+
+
+
 
   </script>
 
-
-
-
 </head>
- 
-<body onload="updateTicketCost()">
+
+<body onload="loadCodes()">
 
   <!-- Header section -->
   <div class="headerPanel">
@@ -86,70 +113,39 @@
     </h2>
   </div>
   <hr>
-  
+
   <!-- Left panel -->
   <div class="contentPanel4">
-  
+
     <!-- Form -->
-    <form 
-      method="get" 
-      enctype="application/x-www-form-urlencoded"
-      action="http://www.strategicsystems.biz/Scripts/ServerResponse.php" 
-      >
+    <form method="get" enctype="application/x-www-form-urlencoded"
+      action="http://www.strategicsystems.biz/Scripts/ServerResponse.php">
+
+
+
 
       <!-- Customer name and e-mail -->
       <label for="txtCustomerName">Customer name:</label>
-      <input 
-        id="txtCustomerName"
-        type="text"
-        name="txtCustomerName" 
-        placeholder="your name"
-        required
-        >
+      <input id="txtCustomerName" type="text" name="txtCustomerName" placeholder="your name" required>
       <br><br>
 
       <label for="txtCustomerEmail">Customer e-mail:</label>
-      <input 
-        id="txtCustomerEmail"
-        type="email"
-        name="txtCustomerEmail" 
-        placeholder="your e-mail"
-        required
-        >
+      <input id="txtCustomerEmail" type="email" name="txtCustomerEmail" placeholder="your e-mail" required>
       <br><br>
-      
+
       <!-- Date and part of day -->
       <label for="txtDate">Date:</label>
-      <input 
-        id="txtDate"
-        type="date"
-        name="txtDate"
-        value="2024-09-26" 
-        min="2024-05-01"
-        max="2024-10-31"
-        required
-        >
+      <input id="txtDate" type="date" name="txtDate" value="2024-09-26" min="2024-05-01" max="2024-10-31" required>
       <br><br>
 
       <fieldset>
         <legend>Part of day</legend>
 
-        <input
-          id="rbHalfDay"
-          type="radio"
-          name="rbPartOfDay"
-          value="HalfDay"
-          >
+        <input id="rbHalfDay" type="radio" name="rbPartOfDay" value="HalfDay">
         <label for="rbHalfDay"> Half day</label>
         <br>
 
-        <input
-          id="rbWholeDay" 
-          type="radio"
-          name="rbPartOfDay"
-          value="WholeDay"
-          checked
-          >
+        <input id="rbWholeDay" type="radio" name="rbPartOfDay" value="WholeDay" checked>
         <label for="rbWholeDay"> Whole day</label>
         <br>
 
@@ -158,18 +154,8 @@
 
       <!-- Tickets -->
       <label for="txtTickets">Tickets (1-21):</label>
-      
-      <input
-        id="txtTickets"
-        type="number"
-        name="txtTickets"
-        value="2" 
-        min="1"
-        step="1"
-        max="21"
-        required
-        onchange="updateTicketCost()"
-        >
+      <input id="txtTickets" type="number" name="txtTickets" value="2" min="1" step="1" max="21" required
+        onchange="updateTicketCost()">
       <br><br>
 
       <!-- Parking option -->
@@ -178,67 +164,55 @@
         <option value="Regular" selected>Regular</option>
         <option value="Premium">Premium</option>
         <option value="NotNeeded">Not Needed</option>
-      </select> 
+      </select>
       <br><br>
-      
-      <!-- Discount code -->      
+
+      <!-- Discount code -->
       <label for="txtDiscountCode">Discount code:</label>
-      <input 
-        id="txtDiscountCode"
-        type="text"
-        name="txtDiscountCode"
-        placeholder="ccc"
-        maxlength="3"
-        onchange="updateTicketCost()"
-        >
+      <input id="txtDiscountCode" name="txtDiscountCode" placeholder="Enter discount code" oninput="updateTicketCost()">
       <br><br>
-      
+
       <!-- Payment type fieldset -->
       <fieldset>
         <legend>Payment type</legend>
 
-        <input 
-          id="rbCredit"
-          type="radio"
-          name="rbPaymentType"
-          value="Credit"
-          checked
-          >
+        <input id="rbCredit" type="radio" name="rbPaymentType" value="Credit" checked>
         <label for="rbCredit"> Credit</label>
         <br>
 
-        <input 
-          id="rbPayPal"
-          type="radio"
-          name="rbPaymentType"
-          value="PayPal"
-          >
+        <input id="rbPayPal" type="radio" name="rbPaymentType" value="PayPal">
         <label for="rbPayPal"> PayPal</label>
         <br>
 
-        <input 
-          id="rbVenmo"
-          type="radio"
-          name="rbPaymentType"
-          value="Venmo"
-          >
+        <input id="rbVenmo" type="radio" name="rbPaymentType" value="Venmo">
         <label for="rbVenmo"> Venmo</label>
         <br>
 
       </fieldset>
       <br>
 
+      <!-- Cost Summary -->
+      <label>Ticket Cost ($):</label>
+      <input type="text" name="txtTicketCost" id="txtTicketCost" readonly>
+      <br><br>
+      <label>Parking Cost ($):</label>
+      <input type="text" name="txtParkingCost" id="txtParkingCost" readonly>
+      <br><br>
+      <label>Discount Amount ($):</label>
+      <input type="text" name="txtDiscountAmount" id="txtDiscountAmount" readonly>
+      <br><br>
 
-      <!-- Subtotal -->
-      <label>Subtotal:</label>
-      <input id="txtSubtotal" type="text" readonly><br><br>
 
-      <label>Tax (6%):</label>
-      <input id="txtTax" type="text" readonly><br><br>
-
-      <label>Total:</label>
-      <input id="txtTotal" type="text" readonly><br><br>
-
+      <!-- Ticket costs -->
+      <label>Subtotal ($):</label>
+      <input type="text" name="txtSubtotal" id="txtSubtotal" readonly>
+      <br><br>
+      <label>Tax ($):</label>
+      <input type="text" name="txtTax" id="txtTax" readonly>
+      <br><br>
+      <label>Total ($):</label>
+      <input type="text" name="txtTotal" id="txtTotal" readonly>
+      <br><br>
 
       <!-- Form buttons -->
       <input type="submit" value="Submit" class="formButton">
@@ -250,12 +224,9 @@
 
   <!-- Right panel -->
   <div class="contentPanel4">
-  
+
     <!-- Park seating chart -->
-    <img 
-      src="Image-IronIsland.jfif" alt="Iron Island Park Map" 
-      width="70%" height="auto" class="ticketimg"
-      >
+    <img src="Image-IronIsland.jfif" alt="Iron Island Park Map" width="70%" height="auto">
 
   </div>
 
@@ -266,11 +237,11 @@
       &nbsp;&nbsp;7912 Coventry, Grosse Ile, MI 48138
       &nbsp;&nbsp;734-761-3355
       &nbsp;&nbsp;<a href="mailto:info@ironislandpark.com">
-      Email Us!</a>
+        Email Us!</a>
       &nbsp;&nbsp;Copyright &#169; 2024
     </h3>
   </div>
-  
+
 </body>
- 
+
 </html>

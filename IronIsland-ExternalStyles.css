@@ -32,16 +32,12 @@
 /*====================================================================
  Body style
 ====================================================================*/
-html,
 body
 {
   background-color:var(--color-darkgold);
   font-family:verdana, georgia, san-serif;
   font-size:20px;
   font-weight:bold;
-  width: 100%;
-  height: 100%;
-  margin: 0;
 }
 
 /*====================================================================
@@ -61,23 +57,12 @@ fieldset
   background-color:var(--color-lightgold);
   color:black;
   padding:20px;
-  width:85%;
-  border: 3px solid #FFF;
+  width:50%;
 }
     
 fieldset input
 {
   width:35%;
-}
-
-
-/*====================================================================
-Legend styles
-====================================================================*/
-legend{
-  background-color: var(--color-teal);
-  padding: 15px;
-  color: #FFF;
 }
 
 /*====================================================================
@@ -86,7 +71,7 @@ legend{
 h1
 {
   font-size:40px;
-  text-align: center;
+  text-align:center;
 }
 h2
 {
@@ -122,6 +107,18 @@ input, select
   width:50%;
 }
 
+input:read-only 
+{
+  background-color:var(--color-teal);
+  color:white;
+}
+
+#txtTicketCost,
+#txtParkingCost,
+#txtDiscountAmount {
+  background-color: var(--color-blue);
+}
+
 /*====================================================================
  Label style
 ====================================================================*/
@@ -131,6 +128,18 @@ label
   display:inline-block;
   font-size:18px;
   width:35%;
+}
+    
+label.statusLabel
+{
+  display:inline-block;
+  background-color:var(--color-darkgold);
+  color:black;
+  font-size:32px;
+  font-weight:bold;
+  margin:20px;
+  padding:20px;
+  width:25%;
 }
 
 /*====================================================================
@@ -144,9 +153,6 @@ label
   color:white;
   padding:4px;
   width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
  
 .menuPanel
@@ -155,12 +161,6 @@ label
   clear:both;
   padding:4px;
   width:100%;
-}
-
-.intro{
-  display:flex;
-  justify-content: space-around;
-  margin-top: 5%;
 }
 
 .contentPanel1
@@ -172,7 +172,7 @@ label
   height:300px;
   overflow:auto;
   padding:12px;
-  width:30%;
+  width:35%;
 }
 
 .contentPanel2
@@ -191,11 +191,10 @@ label
 {
   float:left;
   height:auto;
-  /* margin-left:auto;
-  margin-right:auto; */
+  margin-left:auto;
+  margin-right:auto;
   padding:12px;
   width:50%;
-  margin: 5% auto;
 }
 
 .contentPanel4
@@ -229,7 +228,7 @@ label
 
 .formButton
 {
-  background-color:var(--color-blue);
+  background-color:var(--color-orange);
   border-radius: 1vw;
   color:white;
   font-size:28px;
@@ -238,93 +237,10 @@ label
   width:25%;
 }
 
-
 /*====================================================================
  Pseudo classes
 ====================================================================*/
 a:hover, .formButton:hover
 {
-  background-color:var(--color-teal);
-  cursor: pointer;
-}
-
-
-
-/*====================================================================
-read only textbox styles
-====================================================================*/
-input[readonly] {
-  background-color: var(--color-teal); 
-  color: #FFF;         
-  cursor: not-allowed;  
-  padding: 20px;
-  width: 300px;
-  height: auto;
-
-
-}
-
-
-/*====================================================================
-status message
-====================================================================*/
-
-#status{
-  text-align: center;
-}
-
-/*====================================================================
-status label
-====================================================================*/
-
-#statusLabel{
-  text-align: center;
-  width: 100%;
-}
-
-/*====================================================================
-Ticket page: form position
-====================================================================*/
-
-form{
-  margin: 5% 10%;
-  margin-right: 0;
-}
-
-/*====================================================================
-Ticket Page: img position 
-====================================================================*/
-.ticketimg{
-  margin: 5% 10%;
-
-}
-
-
-/*====================================================================
-a link color on hover
-====================================================================*/
- a:hover{
-  color: var(--color-lightgold);
- }
-
-
- 
-/*====================================================================
-button for data admin
-====================================================================*/
-
-.databutton-container{
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-}
-
-.databutton{
-  background-color: var(--color-teal);
-  color: #FFF;
-  font-weight: 600;
-  font-size: 1.2em;
-  padding: 10px;
+  background-color:var(--color-blue);
 }

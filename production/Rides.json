@@ -1,0 +1,51 @@
+[
+    [
+      "Blue Streak",
+      "Medium",
+      "10-70",
+      "<img src='Image-BlueStreak.jfif' alt='Blue Streak'", 
+      "width='300' height='200'>"
+    ],
+    [
+      "Haunted Mansion",
+      "Medium",
+      "5-65",
+      "<img src='Image-HauntedMansion.jfif' alt='Haunted Mansion'",  
+      "width='300' height='200'>"
+    ],
+    [
+      "It's a Small World",
+      "Low",
+      "4-94",
+      "<img src='Image-ItsASmallWorld.jfif' alt='Its a Small World'",  
+      "width='300' height='200'>"
+    ],
+    [
+      "Maverick",
+      "High",
+      "14-54",
+      "<img src='Image-Maverick.jfif' alt='Maverick'", 
+      "width='300' height='200'>"
+    ],
+    [
+      "Top Thrill Dragster",
+      "High",
+      "12-52",
+      "<img src='Image-TopThrillDragster.jfif' alt='Top Thrill Dragster'", 
+      "width='300' height='200'>"
+    ],
+    [
+      "WindSeeker",
+      "Low",
+      "8-78",
+      "<img src='Image-WindSeeker.jfif' alt='WindSeeker'", 
+      "width='300' height='200'>"
+    ],
+    [
+      "Space Mountain",
+      "Low",
+      "7-87",
+      "<img src='Image-SpaceMountain.jpg' alt='Space Mountain'", 
+      "width='300' height='200'>"
+    ]
+  ]

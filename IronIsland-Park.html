@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-
-
 <!--==================================================================
 //
-// Web site: Iron Island Amusement Park, v2
-// Web page: Park, v2
+// Web site: Iron Island Amusement Park
+// Web page: Park
 // Course:   SI 379
-// Homework: 2
+// Homework: 3
 // Author:   Jennifer Jung
 // Description:
 //   This web site features amusement park Iron Island.  The Park page
@@ -20,82 +18,69 @@
 //=================================================================-->
 
 <head>
-
-  <title>Iron Island Amusement Park, v2</title>
-  <p id="status">Status messages will appear here.</p>
+  
+  <title>Iron Island Amusement Park, v3</title>
   <meta charset="UTF-8">
   <meta name="author" content="Jennifer Jung">
   <meta name="description" content="Iron Island">
   <meta name="keywords" content="park, rides, fun">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  
   <!-- Favicon link -->
   <link rel="shortcut icon" href="Image-IronIslandLogo.jpg" type="image/x-icon">
-
+  
   <!-- External CSS link -->
   <link rel="stylesheet" href="IronIsland-ExternalStyles.css">
-
+    
+  <!-- Internal scripts -->
   <script>
     "use strict";
 
+    //================================================================
+    // Global constant and variables
+    //================================================================
+    const PAUSE = 1;  // In seconds
+    var timer;
+    var time;
 
-    let timerInterval;
-    let hoursUntilOpen;
-
-    // startTimer function
-
-    function startTimer() {
-      const now = new Date();
-      const nextOpeningTime = new Date();
-      nextOpeningTime.setHours(9, 0, 0, 0);  
-      if (now.getHours() >= 9) {
-        nextOpeningTime.setDate(now.getDate() + 1);  
-      } else {
-        nextOpeningTime.setDate(now.getDate());  
-      }
-
-      hoursUntilOpen = Math.ceil((nextOpeningTime - now) / (1000 * 60 * 60));
-
-      updateStatusLabel();
-
-      timerInterval = setInterval(decrementTimer, 1000);
+    //================================================================
+    // startTimer
+    //================================================================
+    function startTimer()
+    {
+      var dNow = new Date();
+      time = 25 - dNow.getHours() + 9;
+      timer = setInterval(decrementTimer, PAUSE * 1000);
     }
-
-
-
-    // decrementTimer function
-
-    function decrementTimer() {
-      hoursUntilOpen--; 
-      updateStatusLabel();
-
-      if (hoursUntilOpen <= 0) {
-        clearInterval(timerInterval);
+    
+    //================================================================
+    // decrementTimer
+    //================================================================
+    function decrementTimer()
+    {
+      time = time - 1;
+      if (time == 0)
+      {
+        clearInterval(timer);
+        lblStatus.innerHTML = "OPEN!";
       }
+      else
+        lblStatus.innerHTML = "We OPEN in " + time +
+        (time == 1 ? " hour" : " hours") + " ...";
     }
-
-    function updateStatusLabel() {
-      // const statusLabel = statusLabel.value;
-      const statusLabel = document.getElementById("statusLabel");
-      if (hoursUntilOpen <= 0) {
-        statusLabel.innerHTML = "OPEN!";
-      } else {
-        statusLabel.innerHTML = `We OPEN in ${hoursUntilOpen} hours...`;
-      }
-    }
+    
   </script>
-
+  
 </head>
-
+ 
 <body onload="startTimer()">
 
   <!-- Header section -->
   <div class="headerPanel">
     <h1>
       Iron Island Amusement Park
-      <label id="statusLabel">Calculating time until opening...</label>
-
     </h1>
+    <label class="statusLabel" id="lblStatus">Open!</label>
   </div>
 
   <!-- Menu section -->
@@ -109,74 +94,80 @@
   <hr>
 
   <!-- Left panel -->
-   <div class="intro">
-    <div class="contentPanel1">
-      <h2>Parking Options</h2>
-      <p>
-        There are multiple parking options depending on how you arrive:
-        <br>
-        &zigrarr; By car &mdash; we have a few acres of parking. Come
-        early, though, or you'll have to park off the island.<br>
-        &zigrarr; By bike &mdash; we have plenty of bike racks. Don't
-        forget your bike lock.<br>
-        &zigrarr; By boat &mdash; dock at Grosse Ile Yacht Club and take
-        our free rickshaw to the park.<br>
-        &zigrarr; By covered wagon &mdash; we'll tend to your oxen at
-        our stables while you're at the park.
-      </p>
-    </div>
-  
-    <!-- Middle panel -->
-    <div class="contentPanel2">
-  
-      <h2>Concessions</h2>
-      <p>
-        We have the following food services:<br>
-        &there4; Carnivore Castle has burgers and hot dogs.<br>
-        &there4; Granola Garage has quick snacks.<br>
-        &there4; Biscuit Bistro has biscuits with and without gravy.<br>
-        &there4; Oatmeal Oasis has hot and cold oats for you and your
-        oxen.
-      </p>
-  
-    </div>
-  
-    <!-- Right panel -->
-    <div class="contentPanel1">
-  
-      <!-- History -->
-      <h2>Park History</h2>
-      <p>
-        Iron Island started out as a metal scrap yard in the woods.
-        Through the ingenuity of its founders, the Steele family,
-        they repurposed the scrap metal into amazing rides.
-        You may notice recycled pop cans, car parts, and downed trees
-        making up the structure of our rides.
-        We think it's safe but leave it to you to find out for sure.
-        We accept metal donations from our customers.
-        These are used to repair existing rides and build new ones.
-        We periodically repaint the rides with <i>Rust-Oleum</i>.
-        Help contribute to our continued and unalloyed success.
-      </p>
-  
-    </div>
+  <div class="contentPanel1">
+    <h2>Parking Options</h2>
+    <p>
+      There are multiple parking options depending on how you arrive:
+      <br>
+      &zigrarr; By car &mdash; we have a few acres of parking.  Come
+      early, though, or you'll have to park off the island.<br>
+      &zigrarr; By bike &mdash; we have plenty of bike racks.  Don't
+      forget your bike lock.<br>
+      &zigrarr; By boat &mdash; dock at Grosse Ile Yacht Club and take
+      our free rickshaw to the park.<br>
+      &zigrarr; By covered wagon &mdash; we'll tend to your oxen at
+      our stables while you're at the park.
+    </p>
+  </div>
 
-   </div>
+  <!-- Middle panel -->
+  <div class="contentPanel2">
 
+    <h2>Concessions</h2>
+    <p>
+      We have the following food services:<br>
+      &there4; Carnivore Castle has burgers and hot dogs.<br>
+      &there4; Granola Garage has quick snacks.<br>
+      &there4; Biscuit Bistro has biscuits with and without gravy.<br>
+      &there4; Oatmeal Oasis has hot and cold oats for you and your 
+      oxen.
+    </p>
+
+  </div>
+
+  <!-- Right panel -->
+  <div class="contentPanel1">
+        
+    <!-- History -->
+    <h2>Park History</h2>
+    <p>
+      Iron Island started out as a metal scrap yard in the woods.
+      Through the ingenuity of its founders, the Steele family, 
+      they repurposed the scrap metal into amazing rides.
+      You may notice recycled pop cans, car parts, and downed trees
+      making up the structure of our rides.
+      We think it's safe but leave it to you to find out for sure.
+      We accept metal donations from our customers.
+      These are used to repair existing rides and build new ones.
+      We periodically repaint the rides with <i>Rust-Oleum</i>.
+      Help contribute to our continued and unalloyed success.
+    </p>
+    
+  </div>
 
   <!-- Left panels -->
   <div class="contentPanel3">
     <h2>Featured Rides</h2>
-
+        
     <!-- Featured rides -->
     <div class="contentPanel4">
       <h3>The Beast</h3>
-      <img src="Image-TheBeast.jfif" alt="The Beast" width="100%" height="auto">
+      <img 
+        src="Image-TheBeast.jfif"
+        alt="The Beast" 
+        width="100%"
+        height="auto"
+        >
     </div>
-
+    
     <div class="contentPanel4">
       <h3>Woodstock Express</h3>
-      <img src="Image-WoodstockExpress.jfif" alt="Woodstock Express" width="100%" height="auto">
+      <img 
+        src="Image-WoodstockExpress.jfif"
+        alt="Woodstock Express" 
+        width="100%"
+        height="auto"
+        >
     </div>
 
   </div>
@@ -184,13 +175,18 @@
   <!-- Right panel -->
   <div class="contentPanel3">
     <h2>Where We Are</h2>
-
+        
     <!-- Google map -->
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d66933.73338492928!2d-83.18359265817921!3d42.14855243037785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883b3a4a7c7060c5%3A0x5464827463752ceb!2s7912%20Coventry%2C%20Grosse%20Ile%20Township%2C%20MI%2048138!5e0!3m2!1sen!2sus!4v1727359421059!5m2!1sen!2sus"
-      width="90%" height="600px" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+      width="90%"
+      height="600px"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      >
+    </iframe>    
 
   </div>
 
@@ -201,11 +197,11 @@
       &nbsp;&nbsp;7912 Coventry, Grosse Ile, MI 48138
       &nbsp;&nbsp;734-761-3355
       &nbsp;&nbsp;<a href="mailto:info@ironislandpark.com">
-        Email Us!</a>
+      Email Us!</a>
       &nbsp;&nbsp;Copyright &#169; 2024
     </h3>
   </div>
-
+  
 </body>
-
+ 
 </html>
